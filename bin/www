@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+
+var app = require('../app');
+var http = require('http');
+
+var port = 80;
+app.set('port', port);
+
+var server = http.createServer(app);
+server.listen(port);
+server.on('error', function(err){
+  console.log('listen error: ' + err);
+  process.exit(1);
+});
+server.on('listening', function(){
+  console.log('Server start');
+});
+
+
+//====================================
+var startUpdate = require('../lib/update');
+var startRun = require('../lib/calc');
+
+startUpdate(startRun);
